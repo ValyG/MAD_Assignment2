@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import org.jetbrains.anko.AnkoLogger
 import org.wit.placemark.models.Location
-
+import org.wit.placemark.views.login.LoginView
 import org.wit.placemark.models.PlacemarkModel
 import org.wit.placemark.views.location.EditLocationView
 import org.wit.placemark.views.map.PlacemarkMapView
@@ -18,7 +18,7 @@ val IMAGE_REQUEST = 1
 val LOCATION_REQUEST = 2
 
 enum class VIEW {
-  LOCATION, PLACEMARK, MAPS, LIST
+  LOCATION, PLACEMARK, MAPS, LIST, LOGIN
 }
 
 open abstract class BaseView() : AppCompatActivity(), AnkoLogger {
@@ -32,6 +32,7 @@ open abstract class BaseView() : AppCompatActivity(), AnkoLogger {
       VIEW.PLACEMARK -> intent = Intent(this, PlacemarkView::class.java)
       VIEW.MAPS -> intent = Intent(this, PlacemarkMapView::class.java)
       VIEW.LIST -> intent = Intent(this, PlacemarkListView::class.java)
+      VIEW.LOGIN -> intent = Intent(this, LoginView::class.java)
     }
     if (key != "") {
       intent.putExtra(key, value)
