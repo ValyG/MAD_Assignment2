@@ -28,6 +28,8 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
   var edit = false;
   var locationService: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(view)
   val locationRequest = createDefaultLocationRequest()
+  var locationManualyChanged = false;
+
 
   init {
     if (view.intent.hasExtra("placemark_edit")) {
@@ -54,7 +56,9 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
       override fun onLocationResult(locationResult: LocationResult?) {
         if (locationResult != null && locationResult.locations != null) {
           val l = locationResult.locations.last()
-          locationUpdate(Location(l.latitude, l.longitude))
+          if (!locationManualyChanged) {
+            locationUpdate(Location(l.latitude, l.longitude))
+          }
         }
       }
     }
@@ -126,6 +130,7 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
   }
 
   fun doSetLocation() {
+    locationManualyChanged = true;
     view?.navigateTo(VIEW.LOCATION, LOCATION_REQUEST, "location", Location(placemark.location.lat, placemark.location.lng, placemark.location.zoom))
   }
 
