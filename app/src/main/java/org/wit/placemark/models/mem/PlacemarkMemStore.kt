@@ -1,7 +1,9 @@
-package org.wit.placemark.models
+package org.wit.placemark.models.mem
 
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
+import org.wit.placemark.models.PlacemarkModel
+import org.wit.placemark.models.PlacemarkStore
 
 var lastId = 0L
 
@@ -37,6 +39,12 @@ class PlacemarkMemStore : PlacemarkStore, AnkoLogger {
   }
 
   override fun delete(placemark: PlacemarkModel) {
+    placemarks.remove(placemark)
+  }
+
+  override fun findById(id:Long) : PlacemarkModel? {
+    val foundPlacemark: PlacemarkModel? = placemarks.find { it.id == id }
+    return foundPlacemark
   }
 
   fun logAll() {

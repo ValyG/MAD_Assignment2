@@ -18,10 +18,10 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginEnd="16dp"
-        android:contentDescription="@string/change_placemark_image1" />
+        android:contentDescription="@string/change_hillFort_image" />
 
     <TextView
-        android:id="@+id/placemarkTitle"
+        android:id="@+id/hillFortTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -32,7 +32,7 @@
         android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/placemarkTitle"
+        android:layout_below="@id/hillFortTitle"
         android:layout_toEndOf="@+id/imageIcon"/>
 
   </RelativeLayout>

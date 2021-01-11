@@ -1,12 +1,13 @@
-package org.wit.placemark.models
+package org.wit.placemark.models.json
 
 import android.content.Context
-import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import org.jetbrains.anko.AnkoLogger
 import org.wit.placemark.helpers.*
+import org.wit.placemark.models.PlacemarkModel
+import org.wit.placemark.models.PlacemarkStore
 import java.util.*
 
 val JSON_FILE = "placemarks.json"
@@ -41,21 +42,28 @@ class PlacemarkJSONStore : PlacemarkStore, AnkoLogger {
 
 
   override fun update(placemark: PlacemarkModel) {
-    placemarks.find {it.id == placemark.id}.apply {
-      this?.title = placemark.title
-      this?.description = placemark.description
-      this?.image = placemark.image
-      this?.lat = placemark.lat
-      this?.lng = placemark.lng
-      this?.zoom = placemark.zoom
+    val placemarksList = findAll() as ArrayList<PlacemarkModel>
+    var foundPlacemark: PlacemarkModel? = placemarksList.find { p -> p.id == placemark.id }
+    if (foundPlacemark != null) {
+      foundPlacemark.title = placemark.title
+      foundPlacemark.description = placemark.description
+      foundPlacemark.image = placemark.image
+      foundPlacemark.lat = placemark.lat
+      foundPlacemark.lng = placemark.lng
+      foundPlacemark.zoom = placemark.zoom
     }
     serialize()
   }
 
   override fun delete(placemark: PlacemarkModel) {
-    //placemarks.remove(placemark)
-    placemarks.remove(placemarks.find {it.id == placemark.id})
+    val foundPlacemark: PlacemarkModel? = placemarks.find { it.id == placemark.id }
+    placemarks.remove(foundPlacemark)
     serialize()
+  }
+
+  override fun findById(id:Long) : PlacemarkModel? {
+    val foundPlacemark: PlacemarkModel? = placemarks.find { it.id == id }
+    return foundPlacemark
   }
 
   private fun serialize() {

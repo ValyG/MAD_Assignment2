@@ -1,4 +1,4 @@
-package org.wit.placemark.activities
+package org.wit.placemark.views.placemarklist
 
 import android.view.LayoutInflater
 import android.view.View
@@ -38,10 +38,9 @@ class PlacemarkAdapter constructor(
   class MainHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(placemark: PlacemarkModel, listener: PlacemarkListener) {
-      itemView.placemarkTitle.text = placemark.title
+      itemView.hillFortTitle.text = placemark.title
       itemView.description.text = placemark.description
-      if(placemark.image.size>0)
-        itemView.imageIcon.setImageBitmap(readImageFromPath(itemView.context, placemark.image[0]))
+      itemView.imageIcon.setImageBitmap(readImageFromPath(itemView.context, placemark.image))
       itemView.setOnClickListener { listener.onPlacemarkClick(placemark) }
     }
   }
