@@ -10,6 +10,7 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
 import org.wit.placemark.R
 import org.wit.placemark.helpers.readImageFromPath
+import org.wit.placemark.models.Location
 import org.wit.placemark.models.PlacemarkModel
 import org.wit.placemark.views.BaseView
 
@@ -48,10 +49,13 @@ class PlacemarkView : BaseView(), AnkoLogger {
     if (placemark.image != null) {
       chooseImage.setText(R.string.change_hillFort_image)
     }
-    lat.setText("%.6f".format(placemark.lat))
-    lng.setText("%.6f".format(placemark.lng))
+    this.showLocation(placemark.location)
   }
 
+  override fun showLocation (loc : Location) {
+    lat.setText("%.6f".format(placemark.location.lat))
+    lng.setText("%.6f".format(placemark.location.lng))
+  }
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
     menuInflater.inflate(R.menu.menu_placemark, menu)
     if (presenter.edit) menu.getItem(0).setVisible(true)
